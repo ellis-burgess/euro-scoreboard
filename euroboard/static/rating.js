@@ -41,7 +41,9 @@ $( function() {
     }
     $( "#sortable-list" ).sortable();
     for (let i = 0; i < entries.length; i++) {
-        addOption(entries[i], i + 1);
+        country = entries[i].split(':')[0];
+        console.log(country);
+        addOption(entries[i], country);
     }
 });
 
@@ -79,6 +81,24 @@ $( function() {
         scores = [12, 10, 8, 7, 6, 5, 4, 3, 2, 1]
         $('#sortable-list').children().each(function(i) { 
             console.log(`${localStorage.getItem('name')} scores ${$(this).attr('class').split(' ')[1]} ${scores[i]} points.`);
+
+            url = `http://dreamlo.com/lb/wPDIvBSjh0STdkNKpu0UOgFTezEMQb30C2W6AqKP7Ncw/add/${localStorage.getItem('name')}${scores[i]}/${$(this).attr('class').split(' ')[1]}`;
+            fetch(url).then(function(response) {
+                return response;
+              }).then(function(data) {
+                console.log(data);
+              }).catch(function(err) {
+                console.log('Fetch Error :-S', err);
+              });    
+              
+              url = `http://dreamlo.com/lb/wPDIvBSjh0STdkNKpu0UOgFTezEMQb30C2W6AqKP7Ncw/delete/${localStorage.getItem('name')}${scores[i]}`;
+              fetch(url).then(function(response) {
+                  return response;
+                }).then(function(data) {
+                  console.log(data);
+                }).catch(function(err) {
+                  console.log('Fetch Error :-S', err);
+                });    
         })
     })
 });
