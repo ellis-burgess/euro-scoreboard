@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block script %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <script src="{{ url_for('static', filename='rating.js') }}" defer></script>
+{% endblock script %}
+
+{% block content %}
+<div class="card-header">
+  <h1 class="fs-3" id="get-voting">Europe, Start Voting!</h1>
+</div>
+
+<div class="card-body">
+    <form method="POST" , action="">
+        <h2 class="h4">Rank Those Countries!</h2>
+        <p class="my-2"><i>You can drag songs to reorder them (the higher in the list, the more points)</i></p>
+        <ul id="sortable-list" class="list-group">
+        </ul>
+    </form>
+    <div id="add-question-div">
+        <button id="add-question" class="btn btn-primary m-1">Add Question</button>
+        <select id="select-question"></select>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary m-1" id="submit-btn">Submit Your Scores</button>
+    </div>
+
+</div>
+{% endblock content %}
