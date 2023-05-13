@@ -1,5 +1,17 @@
 {% extends "layout.html" %}
 
+{% block script %}
+    <script src="{{ url_for('static', filename='setname.js') }}" defer></script>
+{% endblock script %}
+
 {% block content %}
     <h1>Welcome to the Euro App!</h1>
+    <div id="new-user">
+        <p>Please enter your name: </p>
+        <input type="text" name="name" id="name-entry">
+        <button type="submit">Submit</button>
+    </div>
+    <div id="welcome">
+        <p>Welcome!</p>
+    </div>
 {% endblock %}
