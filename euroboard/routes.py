@@ -8,3 +8,7 @@ def index():
 @app.route("/rate")
 def rate():
     return render_template('rate.html', title='Voting Time!')
+
+@app.route("/results")
+def results():
+    return render_template('results.html', title='Results')

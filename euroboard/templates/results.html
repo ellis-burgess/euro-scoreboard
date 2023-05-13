@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block script %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <script src="{{ url_for('static', filename='results.js') }}" defer></script>
+{% endblock script %}
+
+{% block content %}
+    <h1 id="head">The Results Are In!</h1>
+    <div id="new-user">
+        <p>Please enter your name: </p>
+        <input type="text" name="name" id="name-entry">
+        <button type="submit" id="submit-btn">Submit</button>
+    </div>
+{% endblock %}

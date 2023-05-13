@@ -41,9 +41,7 @@ $( function() {
     }
     $( "#sortable-list" ).sortable();
     for (let i = 0; i < entries.length; i++) {
-        country = entries[i].split(':')[0];
-        console.log(country);
-        addOption(entries[i], country);
+        addOption(entries[i], i);
     }
 });
 
@@ -78,11 +76,20 @@ $( function() {
     });
 
     $("#submit-btn").click(function(){
-        scores = [12, 10, 8, 7, 6, 5, 4, 3, 2, 1]
-        $('#sortable-list').children().each(function(i) { 
-            console.log(`${localStorage.getItem('name')} scores ${$(this).attr('class').split(' ')[1]} ${scores[i]} points.`);
-
-            url = `http://dreamlo.com/lb/wPDIvBSjh0STdkNKpu0UOgFTezEMQb30C2W6AqKP7Ncw/add/${localStorage.getItem('name')}${scores[i]}/${$(this).attr('class').split(' ')[1]}`;
+        if ($('#sortable-list').children().length != 10) {
+            alert('You still have more points to allocate!');
+            console.log($('#sortable-list').children.length);
+        } else {
+            scores = [12, 10, 8, 7, 6, 5, 4, 3, 2, 1]
+            order = [];
+            $('#sortable-list').children().each(function(i) { 
+                order.push($(this).attr('class').split(' ')[1])
+                console.log(`${localStorage.getItem('name')} scores song number ${$(this).attr('class').split(' ')[1]} ${scores[i]} points.`);
+            })
+    
+            str = `${order[2]}_${order[3]}_${order[4]}_${order[5]}_${order[6]}_${order[7]}_${order[8]}_${order[9]}`
+    
+            url = `http://dreamlo.com/lb/wPDIvBSjh0STdkNKpu0UOgFTezEMQb30C2W6AqKP7Ncw/add/${localStorage.getItem('name')}/${order[0]}/${order[1]}/${str}`;
             fetch(url).then(function(response) {
                 return response;
               }).then(function(data) {
@@ -91,7 +98,7 @@ $( function() {
                 console.log('Fetch Error :-S', err);
               });    
               
-              url = `http://dreamlo.com/lb/wPDIvBSjh0STdkNKpu0UOgFTezEMQb30C2W6AqKP7Ncw/delete/${localStorage.getItem('name')}${scores[i]}`;
+              url = `http://dreamlo.com/lb/wPDIvBSjh0STdkNKpu0UOgFTezEMQb30C2W6AqKP7Ncw/delete/${localStorage.getItem('name')}`;
               fetch(url).then(function(response) {
                   return response;
                 }).then(function(data) {
@@ -99,6 +106,6 @@ $( function() {
                 }).catch(function(err) {
                   console.log('Fetch Error :-S', err);
                 });    
-        })
+        }
     })
 });
