@@ -5,13 +5,10 @@
 {% endblock script %}
 
 {% block content %}
-    <h1>Welcome to the Euro App!</h1>
+    <h1 id="welcome">Welcome to the Euro App!</h1>
     <div id="new-user">
         <p>Please enter your name: </p>
         <input type="text" name="name" id="name-entry">
-        <button type="submit">Submit</button>
-    </div>
-    <div id="welcome">
-        <p>Welcome!</p>
+        <button type="submit" id="submit-btn">Submit</button>
     </div>
 {% endblock %}

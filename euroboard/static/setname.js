@@ -2,14 +2,12 @@ const newUser = document.getElementById('new-user');
 const welcome = document.getElementById('welcome');
 
 if (localStorage.getItem('name')) {
-    newUser.remove();
-    welcome.textContent = `Welcome, ${localStorage.getItem('name')}!`;
-} else {
+    newUser.getElementsByTagName('p')[0].textContent = 'Change Name:';
+    welcome.textContent = `Welcome to the Euro App, ${localStorage.getItem('name')}!`;
+}
     let userName = document.getElementById('name-entry');
-    let submit = document.querySelector('button');
+    let submit = document.getElementById('submit-btn');
     submit.addEventListener('click', () => {
         localStorage.setItem('name', userName.value);
-        newUser.remove();
-        welcome.textContent = `Welcome, ${localStorage.getItem('name')}!`;
+        welcome.textContent = `Welcome to the Euro App, ${localStorage.getItem('name')}!`;
     })
-}
