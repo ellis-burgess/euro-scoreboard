@@ -32,10 +32,12 @@ function displayResults(results) {
     text_arr = result.text;
     text_arr = text_arr.split('_');
     this_scores = [entries[result.score], entries[result.seconds]];
+
     for (let i = 0; i < text_arr.length; i++) {
       this_scores.push(entries[text_arr[i]]);
     }
-    $('.card-body').append(`
+
+    $('#result-display').append(`
         <div>
           <h2 class="fs-4">${result.name}'s Ratings:</h2>
           <h3 class="fs-5">Douze Points to ${this_scores[0]}</h2>
@@ -44,10 +46,12 @@ function displayResults(results) {
           </div>
         </div>
       `);
+
     for (let i = 1; i < scores.length; i++) {
       $(`#${result.name}_results`).append(`
           <p>${scores[i]} point(s) to ${this_scores[i]}</p>
         `)
     }
+
   };
 };
