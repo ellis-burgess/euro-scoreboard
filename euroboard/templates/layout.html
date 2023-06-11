@@ -41,10 +41,25 @@
             </div>
           </nav>
     </header>
-    <div id="content">
 
-        {% block content %}
-        {% endblock content %}
-    </div>
+    <main class="flex-shrink-0">
+      <div id="flashes">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-info mb-0" role="alert" style="padding-left: 28px;">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      </div>
+      <div class="d-flex justify-content-center align-items-center">
+        <div class="card mx-3 my-2" style="width: 90%;">
+          {% block content %}
+          {% endblock %}
+        </div>
+      </div>
+    </main>
 </body>
 </html>

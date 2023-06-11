@@ -1,14 +1,22 @@
 {% extends "layout.html" %}
 
 {% block script %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
     <script src="{{ url_for('static', filename='setname.js') }}" defer></script>
 {% endblock script %}
 
 {% block content %}
-    <h1 id="welcome">Welcome to the Euro App!</h1>
-    <div id="new-user">
-        <p>Please enter your name: </p>
-        <input type="text" name="name" id="name-entry">
-        <button type="submit" id="submit-btn">Submit</button>
-    </div>
+<div class="card-header">
+  <h1 class="fs-3" id="welcome">Welcome to the Euro App!</h1>
+</div>
+
+<div class="card-body">
+  <div id="new-user" class="form-group">
+    <label for="name-entry" class="fs-4">Please enter your name: </label>
+    <input type="text" name="name" id="name-entry" class="form-control" placeholder="Name">
+    <small id="name-help" class="form-text text-muted">Note: Your name must be unique.</small>
+  </div>
+  <button type="submit" id="submit-btn" class="btn btn-primary">Submit</button>
+</div>
 {% endblock %}

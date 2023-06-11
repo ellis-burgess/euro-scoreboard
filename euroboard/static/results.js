@@ -39,7 +39,7 @@ function displayResults(results) {
         <div>
           <h2 class="fs-4">${result.name}'s Ratings:</h2>
           <h3 class="fs-5">Douze Points to ${this_scores[0]}</h2>
-          <div id=${result.name}_results>
+          <div class="card-body" id=${result.name}_results>
             <h4 class="fs-5">Remaining Points</h3>
           </div>
         </div>
