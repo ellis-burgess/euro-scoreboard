@@ -21,6 +21,9 @@
     {% endblock script %}
 </head>
 <body>
+    <div id="entries" data-entries="{{ entries }}" data-scores="{{ scores }}" hidden>
+      This should be hidden.
+    </div>
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark p-4" style="background-color:yellow;">
             <div class="container-fluid">
@@ -36,7 +39,7 @@
                 </div>
               </div>
             </div>
-          </nav>        
+          </nav>
     </header>
     <div id="content">
 

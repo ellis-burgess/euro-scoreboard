@@ -1,33 +1,7 @@
-all_options = {};
+let all_options = {};
 
-entries = [
-    'Austria: Who The Hell Is Edgar?',
-    'Portugal: Ai Coração',
-    'Switzerland: Watergun',
-    'Poland: Solo',
-    'Serbia: Samo Mi Se Spava',
-    'France: Évidemment',
-    'Cyprus: Break A Broken Heart',
-    'Spain: EAEA',
-    'Sweden: Tattoo',
-    'Albania: Duje',
-    'Italy: Due Vite',
-    'Estonia: Bridges',
-    'Finland: Cha Cha Cha',
-    'Czechia: My Sister\'s Crown',
-    'Australia: Promise',
-    'Belgium: Because Of You',
-    'Armenia: Future Lover',
-    'Moldova: Soarele si Luna',
-    'Ukraine: Heart of Steel',
-    'Norway: Queen of Kings',
-    'Germany: Blood & Glitter',
-    'Lithuania: Stay',
-    'Israel: Unicorn',
-    'Slovenia: Carpe Diem',
-    'Croatia: ŠĆ!',
-    'United Kingdom: I Wrote A Song'
-    ];
+let entries = JSON.parse($('#entries').attr('data-entries') || "[\"Error, entries not found.\"]");
+let scores = JSON.parse($('#entries').attr('data-scores') || "[12, 10, 8, 7, 6, 5, 4, 3, 2, 1]");
 
 function addOption(optText, optValue) {
     $('#select-question').append(`<option value="${optValue}">${optText}</option>`);
@@ -80,7 +54,6 @@ $( function() {
             alert('You still have more points to allocate!');
             console.log($('#sortable-list').children.length);
         } else {
-            scores = [12, 10, 8, 7, 6, 5, 4, 3, 2, 1];
             order = [];
             $('#sortable-list').children().each(function(i) {
                 order.push($(this).attr('class').split(' ')[1])
