@@ -7,7 +7,7 @@ A web app to give your own Eurovision scores
 - [ ] Add dynamic pages for viewing full results per user
 
 ## Login Todo List
-- [*] Homepage requires login or redirects to registration
-- [*] Users can register
-- [*] Users can validate their credentials
+- [x] Homepage requires login or redirects to registration
+- [x] Users can register
+- [x] Users can validate their credentials
 - [ ] Users can log in
