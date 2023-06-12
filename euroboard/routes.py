@@ -49,7 +49,8 @@ def register():
             http://dreamlo.com/lb/wPDIvBSjh0STdkNKpu0UOgFTezEMQb30C2W6AqK'
             + 'P7Ncw/add/' + form.username.data + '-UN/0/0/'
             + form.password.data)
-        flash('Registration successful!')
+        flash('Registration successful! You are now logged in')
+        return redirect(url_for('rate'))
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/logout')

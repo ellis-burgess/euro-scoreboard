@@ -21,9 +21,11 @@ fetch(url).then(function(response) {
     } else {
       info = data.dreamlo.leaderboard.entry;
       console.log(info);
-      totalResults = totalResultsPerCountry(info);
+      let totalResults = totalResultsPerCountry(info);
       console.log(totalResults);
-      displayResults(totalResults);
+      if (totalResults != 0) {
+        displayResults(totalResults);
+      }
     };
   }).catch(function(err) {
     console.log('Fetch Error :-S', err);
@@ -32,17 +34,35 @@ fetch(url).then(function(response) {
 function totalResultsPerCountry(results) {
   // Create array of two arrays: entries and scores
   let resultArray = [entries, new Array(entries.length).fill(0)];
+  let valid_answers = 0
 
   // Add each set of results to totals
   if (results.length == undefined) {
+    // if results.name ends with "-UN"
+    if ((results.name).endsWith("-UN")) {
+      $('#result-display').append(`
+        <div>
+          <h2 class="fs-4">
+            Nobody has submitted their ratings yet...
+          </h2>
+        </div>
+      `)
+      return 0
+    }
     resultArray = addUserToCountryResults(results, resultArray)
   } else {
     for (let result of results) {
-      resultArray = addUserToCountryResults(result, resultArray)
+      let name = result['name'];
+      if (!(name.endsWith("-UN"))) {
+        resultArray = addUserToCountryResults(result, resultArray);
+        valid_answers += 1;
+      }
     }
   }
-
-  return resultArray;
+  if (valid_answers > 0) {
+    return resultArray;
+  }
+  return valid_answers;
 }
 
 function addUserToCountryResults(result, resultArray) {

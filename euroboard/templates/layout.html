@@ -24,6 +24,11 @@
     <div id="entries" data-entries="{{ entries }}" data-scores="{{ scores }}" hidden>
       This should be hidden.
     </div>
+    {% if 'username' in session %}
+      <div id="username-storage" data-username="{{ session['username'] }}" hidden>
+        This should also be hidden.
+      </div>
+    {% endif %}
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark p-4" style="background-color:yellow;">
             <div class="container-fluid">

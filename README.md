@@ -11,3 +11,5 @@ A web app to give your own Eurovision scores
 - [x] Users can register
 - [x] Users can validate their credentials
 - [x] Users can log in and log out (session data correct throughout)
+- [ ] Filter results from leaderboard API to ignore user storage entries
+- [ ] Replace all instances of localStorage[name] with session['username']

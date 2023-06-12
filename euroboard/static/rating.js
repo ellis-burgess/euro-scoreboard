@@ -6,6 +6,7 @@ let entries = JSON.parse(
 let scores = JSON.parse(
   $('#entries').attr('data-scores') || "[12, 10, 8, 7, 6, 5, 4, 3, 2, 1]"
 );
+let current_user = $('#username-storage').attr('data-username')
 
 function addOption(optText, optValue) {
     $('#select-question').append(
@@ -15,10 +16,6 @@ function addOption(optText, optValue) {
 }
 
 $( function() {
-    if (!localStorage.getItem('name')) {
-        alert('You must set your name before you can submit scores!');
-        window.location.replace("http://127.0.0.1:5000/");
-    }
     $( "#sortable-list" ).sortable();
     for (let i = 0; i < entries.length; i++) {
         addOption(entries[i], i);
@@ -81,8 +78,9 @@ $( function() {
             $('#sortable-list').children().each(function(i) {
                 order.push($(this).attr('class').split(' ')[1])
                 console.log(
-                  `${localStorage.getItem('name')} scores song number
-                  ${$(this).attr('class').split(' ')[1]} ${scores[i]} points.`
+                  `${current_user} scores song number `
+                  + `${$(this).attr('class').split(' ')[1]} `
+                  + `${scores[i]} points.`
                 );
             })
 
@@ -90,7 +88,7 @@ $( function() {
             + `_${order[7]}_${order[8]}_${order[9]}`;
 
             url = `http://dreamlo.com/lb/wPDIvBSjh0STdkNKpu0UOgFTezEMQb30C2W6`
-              + `AqKP7Ncw/add/${localStorage.getItem('name')}`
+              + `AqKP7Ncw/add/${current_user}`
               + `/${order[0]}/${order[1]}/${str}`;
             fetch(url).then(function(response) {
                 return response;
@@ -102,7 +100,7 @@ $( function() {
 
               if (!confirm("Keep results?")) {
                 url = `http://dreamlo.com/lb/wPDIvBSjh0STdkNKpu0UOgFTezEMQb30C2
-                  W6AqKP7Ncw/delete/${localStorage.getItem('name')}`;
+                  W6AqKP7Ncw/delete/${current_user}`;
                 fetch(url).then(function(response) {
                     return response;
                   }).then(function(data) {

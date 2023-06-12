@@ -21,9 +21,31 @@ fetch(url).then(function(response) {
     } else {
       info = data.dreamlo.leaderboard.entry;
       console.log(info, typeof(info));
-      if (info.length < 2 || info.length == undefined) {
-        console.log('Short results...');
-      } else {
+      if (info.length == undefined) {
+        if (info['name'].endsWith("-UN")) {
+          $('#result-display').append(`
+            <div>
+              <h2 class="fs-4">${result.name}'s Ratings:</h2>
+              <h3 class="fs-5">Douze Points to ${this_scores[0]}</h2>
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="fs-5">Remaining Points</h3>
+                </div>
+                <div class="card-body" id="${result.name}_results">
+                </div>
+              </div>
+            </div>
+            `); }
+            else {
+              $('#result-display').append(`
+                <div>
+                  <h2 class="fs-4">
+                    Nobody has submitted their ratings yet...
+                  </h2>
+                </div>
+                `)
+            }
+        } else {
         displayResults(info);
       }
     };
@@ -32,34 +54,37 @@ fetch(url).then(function(response) {
   });
 
 function displayResults(results) {
+  valid_answers = 0
   for (let result of results) {
-    text_arr = result.text;
-    text_arr = text_arr.split('_');
-    this_scores = [entries[result.score], entries[result.seconds]];
+    if (!(result['name'].endsWith("-UN"))) {
+      text_arr = result.text;
+      text_arr = text_arr.split('_');
+      this_scores = [entries[result.score], entries[result.seconds]];
 
-    for (let i = 0; i < text_arr.length; i++) {
-      this_scores.push(entries[text_arr[i]]);
-    }
+      for (let i = 0; i < text_arr.length; i++) {
+        this_scores.push(entries[text_arr[i]]);
+      }
 
-    $('#result-display').append(`
-        <div>
-          <h2 class="fs-4">${result.name}'s Ratings:</h2>
-          <h3 class="fs-5">Douze Points to ${this_scores[0]}</h2>
-          <div class="card">
-            <div class="card-header">
-              <h4 class="fs-5">Remaining Points</h3>
-            </div>
-            <div class="card-body" id="${result.name}_results">
+      $('#result-display').append(`
+          <div>
+            <h2 class="fs-4">${result.name}'s Ratings:</h2>
+            <h3 class="fs-5">Douze Points to ${this_scores[0]}</h2>
+            <div class="card">
+              <div class="card-header">
+                <h4 class="fs-5">Remaining Points</h3>
+              </div>
+              <div class="card-body" id="${result.name}_results">
+              </div>
             </div>
           </div>
-        </div>
-      `);
+        `);
 
-    for (let i = 1; i < scores.length; i++) {
-      $(`#${result.name}_results`).append(`
-          <p>${scores[i]} point(s) to ${this_scores[i]}</p>
-        `)
+      for (let i = 1; i < scores.length; i++) {
+        $(`#${result.name}_results`).append(`
+            <p>${scores[i]} point(s) to ${this_scores[i]}</p>
+          `)
+      }
+      valid_answers += 1
     }
-
   };
 };
