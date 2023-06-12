@@ -1,5 +1,9 @@
-let entries = JSON.parse($('#entries').attr('data-entries') || "[\"Error, entries not found.\"]");
-let scores = JSON.parse($('#entries').attr('data-scores') || "[12, 10, 8, 7, 6, 5, 4, 3, 2, 1]");
+let entries = JSON.parse(
+  $('#entries').attr('data-entries') || "[\"Error, entries not found.\"]"
+);
+let scores = JSON.parse(
+  $('#entries').attr('data-scores') || "[12, 10, 8, 7, 6, 5, 4, 3, 2, 1]"
+);
 
 url = 'http://dreamlo.com/lb/645fa8768f40bb7d84d59e27/json'
 fetch(url).then(function(response) {
