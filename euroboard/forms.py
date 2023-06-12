@@ -5,13 +5,13 @@ import requests
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(),
-        Regexp('([a-z]|[0-9]){5,15}',
+        Regexp('^[a-z0-9]{5,15}$',
         message = 'Your username should be between 5 and 15 characters long, \
         and can only contain lower case letters or numbers.')])
     password = PasswordField('Password', validators=[DataRequired(),
         EqualTo('confirm_password',
         message = 'Passwords do not match. Please try again.'),
-        Regexp('(\w{6,20})',
+        Regexp('(^\w{6,20}$)',
         message = 'Your password should be between 6 and 20 characters long, \
         and can only contain letters, numbers, and underscores.')])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired()])
