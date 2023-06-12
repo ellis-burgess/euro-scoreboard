@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block script %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <script src="{{ url_for('static', filename='login.js') }}" defer></script>
+{% endblock script %}
+
+{% block content %}
+<div class="card-header">
+  <h1 class="fs-3" id="welcome">Welcome to the Euro App!</h1>
+</div>
+
+<div class="card-body">
+  <div id="register" class="form-group">
+    <h1>Register</h1>
+    <form method="POST" action="">
+        {{ form.csrf_token }}
+        {{ form.username.label }} {{ form.username }}
+        {{ form.password.label }} {{ form.password }}
+        {{ form.confirm_password.label }} {{ form.confirm_password }}
+        {{ form.submit }}
+    </form>
+    {% for error in form.errors %}
+        <p class="error">{{ form.errors.get(error)[0] }}</p>
+    {% endfor %}
+</div>
+{% endblock %}
