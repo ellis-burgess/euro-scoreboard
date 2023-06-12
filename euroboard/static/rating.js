@@ -87,7 +87,7 @@ $( function() {
             })
 
             str = `${order[2]}_${order[3]}_${order[4]}_${order[5]}_${order[6]}`
-            + `${order[7]}_${order[8]}_${order[9]}`;
+            + `_${order[7]}_${order[8]}_${order[9]}`;
 
             url = `http://dreamlo.com/lb/wPDIvBSjh0STdkNKpu0UOgFTezEMQb30C2W6`
               + `AqKP7Ncw/add/${localStorage.getItem('name')}`
