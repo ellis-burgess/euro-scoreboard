@@ -11,7 +11,7 @@ fetch(url).then(function(response) {
   }).then(function(data) {
     $('#loading').remove();
     if (data.dreamlo.leaderboard == null) {
-      $('.card-body').append(`
+      $('#result-display').append(`
         <div>
           <h2 class="fs-4">
             Nobody has submitted their ratings yet...

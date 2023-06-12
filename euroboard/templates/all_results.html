@@ -5,3 +5,17 @@
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
     <script src="{{ url_for('static', filename='results_summary.js') }}" defer></script>
 {% endblock script %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h1 class="fs-3" id="get-voting">The Results Are In!</h1>
+    </div>
+
+    <div class="card-body" id="result-display">
+      <h2 class="fs-4" id="loading">Loading...</h2>
+    </div>
+
+</div>
+
+{% endblock %}
