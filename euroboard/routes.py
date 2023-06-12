@@ -1,10 +1,12 @@
-from flask import Flask, render_template, url_for, request, jsonify, redirect, flash
+from flask import Flask, render_template, url_for, request, jsonify, redirect, flash, session
 from euroboard import app
 import requests
 from euroboard.forms import RegistrationForm, LoginForm
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
+    if 'username' in session:
+        return redirect(url_for('all_results'))
     form = LoginForm()
     if form.validate_on_submit():
         user = requests.get(
@@ -15,14 +17,18 @@ def index():
         elif form.password.data != user.text.split("|")[3]:
             flash('Incorrect password.')
         else:
-            # login_user(user)
+            session['username'] = form.username.data
             flash('You have been logged in.')
             return redirect(url_for('rate'))
     return render_template('index.html', title='Login', form=form)
 
 @app.route("/rate")
 def rate():
-    return render_template('rate.html', title='Voting Time!')
+    if 'username' in session:
+        return render_template('rate.html', title='Voting Time!')
+    else:
+        flash('You must be logged in to submit ratings!')
+        return redirect(url_for('index'))
 
 @app.route("/results")
 def results():
@@ -34,6 +40,9 @@ def all_results():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if 'username' in session:
+        flash('You can\'t register when you\'re already logged in!')
+        return redirect(url_for('all_results'))
     form = RegistrationForm()
     if form.validate_on_submit():
         requests.get('\
@@ -42,3 +51,9 @@ def register():
             + form.password.data)
         flash('Registration successful!')
     return render_template('register.html', title='Register', form=form)
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    flash('You have been logged out.')
+    return redirect(url_for('index'))

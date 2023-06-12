@@ -10,4 +10,4 @@ A web app to give your own Eurovision scores
 - [x] Homepage requires login or redirects to registration
 - [x] Users can register
 - [x] Users can validate their credentials
-- [ ] Users can log in
+- [x] Users can log in and log out (session data correct throughout)
