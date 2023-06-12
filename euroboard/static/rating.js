@@ -89,9 +89,9 @@ $( function() {
             str = `${order[2]}_${order[3]}_${order[4]}_${order[5]}_${order[6]}_
               ${order[7]}_${order[8]}_${order[9]}`
 
-            url = `http://dreamlo.com/lb/wPDIvBSjh0STdkNKpu0UOgFTezEMQb30C2W6A
-              qKP7Ncw/add/${localStorage.getItem('name')}/${order[0]}/
-              ${order[1]}/${str}`;
+            url = `http://dreamlo.com/lb/wPDIvBSjh0STdkNKpu0UOgFTezEMQb30C2W6`
+              + `AqKP7Ncw/add/${localStorage.getItem('name')}`
+              + `/${order[0]}/${order[1]}/${str}`;
             fetch(url).then(function(response) {
                 return response;
               }).then(function(data) {
