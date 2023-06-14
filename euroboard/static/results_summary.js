@@ -11,13 +11,7 @@ fetch(url).then(function(response) {
   }).then(function(data) {
     $('#loading').remove();
     if (data.dreamlo.leaderboard == null) {
-      $('#result-display').append(`
-        <div>
-          <h2 class="fs-4">
-            Nobody has submitted their ratings yet...
-          </h2>
-        </div>
-        `)
+      displayNoResults();
     } else {
       info = data.dreamlo.leaderboard.entry;
       console.log(info);
@@ -34,38 +28,40 @@ fetch(url).then(function(response) {
 function totalResultsPerCountry(results) {
   // Create array of two arrays: entries and scores
   let resultArray = [entries, new Array(entries.length).fill(0)];
-  let valid_answers = 0
+  let valid_answers = 0;
 
   // Add each set of results to totals
   if (results.length == undefined) {
-    // if results.name ends with "-UN"
+    // if only result is user login storage, act as if results table is empty
     if ((results.name).endsWith("-UN")) {
-      $('#result-display').append(`
-        <div>
-          <h2 class="fs-4">
-            Nobody has submitted their ratings yet...
-          </h2>
-        </div>
-      `)
-      return 0
+      displayNoResults();
+      return 0;
     }
-    resultArray = addUserToCountryResults(results, resultArray)
+    console.log('Calling addUserToCountryResults(results, resultArray)');
+    resultArray = addUserToCountryResults(results, resultArray);
+    valid_answers += 1;
   } else {
     for (let result of results) {
       let name = result['name'];
+      // Store results if not user login storage
       if (!(name.endsWith("-UN"))) {
         resultArray = addUserToCountryResults(result, resultArray);
         valid_answers += 1;
       }
     }
   }
+
   if (valid_answers > 0) {
+    // return array if at least one result is found
     return resultArray;
   }
+
+  // return 0 if no valid answers found
   return valid_answers;
 }
 
 function addUserToCountryResults(result, resultArray) {
+  // Store ratings from highest to lowest in single array
   text_arr = result.text;
   text_arr = text_arr.split('_');
   this_scores = [result.score, result.seconds];
@@ -74,16 +70,17 @@ function addUserToCountryResults(result, resultArray) {
     this_scores.push(text_arr[i]);
   }
 
-  // this_scores contains index of countries receiving points in desc. order
-
   for (let i = 0; i < this_scores.length; i++) {
+    // Add score for each entry to entry total score
     resultArray[1][this_scores[i]] += scores[i];
   }
 
+  // Return modified array
   return resultArray;
 }
 
 function displayResults(totalResults) {
+  // Sort arrays in descending order
   totalResults = sortTwoArrays(totalResults);
   $("#result-display").append(`
     <ol id="list-results">
@@ -99,6 +96,8 @@ function displayResults(totalResults) {
 }
 
 function sortTwoArrays(arrays) {
+  // Bubble sort algorithm on scores array, with other array being
+  // sorted using the same swaps
   for (let i = 0; i < arrays[0].length - 1; i++) {
     for (let j = 0; j < (arrays[0].length - i - 1); j++) {
       if (arrays[1][j] < arrays[1][j + 1]) {
@@ -114,4 +113,14 @@ function sortTwoArrays(arrays) {
     }
   }
   return arrays;
+}
+
+function displayNoResults() {
+  $('#result-display').append(`
+    <div>
+      <h2 class="fs-4">
+        Nobody has submitted their ratings yet...
+      </h2>
+    </div>
+  `);
 }

@@ -2,7 +2,7 @@
 A web app to give your own Eurovision scores
 
 ## To Do
-- [ ] Implement user handling (it will be held together with duct tape)
+- [x] Implement user handling (it will be held together with duct tape)
 - [ ] Improve display of scores/results
 - [ ] Add dynamic pages for viewing full results per user
 - [ ] Users can delete their own results

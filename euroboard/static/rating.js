@@ -6,7 +6,7 @@ let entries = JSON.parse(
 let scores = JSON.parse(
   $('#entries').attr('data-scores') || "[12, 10, 8, 7, 6, 5, 4, 3, 2, 1]"
 );
-let current_user = $('#username-storage').attr('data-username')
+let current_user = $('#username-storage').attr('data-username');
 
 function addOption(optText, optValue) {
     $('#select-question').append(
