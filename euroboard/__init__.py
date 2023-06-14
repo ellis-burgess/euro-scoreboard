@@ -1,7 +1,10 @@
 from flask import Flask
+from flask_hashing import Hashing
 import json
 
 app = Flask(__name__)
+
+hashing = Hashing(app)
 
 @app.context_processor
 def inject_eurovision_entries():

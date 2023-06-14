@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, request, jsonify, redirect, flash, session
-from euroboard import app
+from euroboard import app, hashing
 import requests
 from euroboard.forms import RegistrationForm, LoginForm
 
@@ -12,9 +12,10 @@ def index():
         user = requests.get(
             'http://dreamlo.com/lb/645fa8768f40bb7d84d59e27/pipe-get/'
             + form.username.data + '-UN')
-        if user is '':
+        if user == '':
             flash('Invalid username.')
-        elif form.password.data != user.text.split("|")[3]:
+        elif not hashing.check_value(user.text.split("|")[3],
+            form.password.data, salt=form.username.data):
             flash('Incorrect password.')
         else:
             session['username'] = form.username.data
@@ -44,11 +45,14 @@ def register():
         flash('You can\'t register when you\'re already logged in!')
         return redirect(url_for('all_results'))
     form = RegistrationForm()
-    if form.validate_on_submit():
+    if request.method == 'POST' and form.validate():
+        hash_password = hashing.hash_value(form.password.data,
+            salt=form.username.data)
         requests.get('\
             http://dreamlo.com/lb/wPDIvBSjh0STdkNKpu0UOgFTezEMQb30C2W6AqK'
             + 'P7Ncw/add/' + form.username.data + '-UN/0/0/'
-            + form.password.data)
+            + hash_password)
+        session['username'] = form.username.data
         flash('Registration successful! You are now logged in')
         return redirect(url_for('rate'))
     return render_template('register.html', title='Register', form=form)
